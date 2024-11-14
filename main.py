@@ -38,10 +38,19 @@ class Bot:
             story_viewers.append(self._cl.story_viewers(story.pk))
         return story_viewers
 
+    def get_story_viewer_names(self):
+        story_list = self.get_self_stories()
+        story_viewers: list[str] = []
+        for story in story_list:
+            user_list = self._cl.story_viewers(story.pk)
+            for user in user_list:
+                story_viewers.append(user.full_name)
+        return story_viewers
+
 
 def main():
     goodbot = Bot()
-    print(goodbot.get_story_viewers())
+    print(goodbot.get_story_viewer_names())
 
 
 if __name__ in "__main__":
